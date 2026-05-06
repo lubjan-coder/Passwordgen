@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>passwordGEN</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Code+Pro:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">password<span>GEN</span></div>
+  <div class="nav-lang">
+    <select id="lang-select" onchange="setLang(this.value)">
+      <option value="fr">🇫🇷 Français</option>
+      <option value="en">🇬🇧 English</option>
+      <option value="es">🇪🇸 Español</option>
+      <option value="de">🇩🇪 Deutsch</option>
+      <option value="it">🇮🇹 Italiano</option>
+      <option value="pt">🇵🇹 Português</option>
+      <option value="nl">🇳🇱 Nederlands</option>
+      <option value="pl">🇵🇱 Polski</option>
+      <option value="ru">🇷🇺 Русский</option>
+      <option value="zh">🇨🇳 中文</option>
+      <option value="ja">🇯🇵 日本語</option>
+      <option value="ko">🇰🇷 한국어</option>
+      <option value="ar">🇸🇦 العربية</option>
+      <option value="tr">🇹🇷 Türkçe</option>
+      <option value="sv">🇸🇪 Svenska</option>
+      <option value="da">🇩🇰 Dansk</option>
+      <option value="fi">🇫🇮 Suomi</option>
+      <option value="no">🇳🇴 Norsk</option>
+      <option value="cs">🇨🇿 Čeština</option>
+      <option value="sk">🇸🇰 Slovenčina</option>
+      <option value="hu">🇭🇺 Magyar</option>
+      <option value="ro">🇷🇴 Română</option>
+      <option value="bg">🇧🇬 Български</option>
+      <option value="hr">🇭🇷 Hrvatski</option>
+      <option value="sr">🇷🇸 Srpski</option>
+      <option value="uk">🇺🇦 Українська</option>
+      <option value="el">🇬🇷 Ελληνικά</option>
+      <option value="he">🇮🇱 עברית</option>
+      <option value="hi">🇮🇳 हिन्दी</option>
+      <option value="bn">🇧🇩 বাংলা</option>
+      <option value="ur">🇵🇰 اردو</option>
+      <option value="fa">🇮🇷 فارسی</option>
+      <option value="th">🇹🇭 ภาษาไทย</option>
+      <option value="vi">🇻🇳 Tiếng Việt</option>
+      <option value="id">🇮🇩 Bahasa Indonesia</option>
+      <option value="ms">🇲🇾 Bahasa Melayu</option>
+      <option value="tl">🇵🇭 Filipino</option>
+      <option value="sw">🇰🇪 Kiswahili</option>
+      <option value="am">🇪🇹 አማርኛ</option>
+      <option value="yo">🇳🇬 Yorùbá</option>
+      <option value="ha">🇳🇬 Hausa</option>
+      <option value="af">🇿🇦 Afrikaans</option>
+      <option value="ca">🏳 Català</option>
+      <option value="eu">🏳 Euskara</option>
+      <option value="gl">🏳 Galego</option>
+      <option value="lt">🇱🇹 Lietuvių</option>
+      <option value="lv">🇱🇻 Latviešu</option>
+      <option value="et">🇪🇪 Eesti</option>
+      <option value="sl">🇸🇮 Slovenščina</option>
+    </select>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>password<span>GEN</span></h1>
+  <p id="hero-sub">Générez des mots de passe sécurisés en un instant</p>
+</div>
+
+<div class="main">
+
+  <!-- Résultat -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-dot"></div>
+      <h2 id="lbl-result">Résultat</h2>
+    </div>
+    <div class="card-body">
+      <div class="output-wrap">
+        <div id="pw-text" class="blank">—</div>
+        <button class="copy-btn" id="copy-btn" onclick="copyPw()">Copier</button>
+      </div>
+      <div class="force-row">
+        <div class="force-track"><div class="force-fill" id="force-fill"></div></div>
+        <div class="force-label" id="force-label">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Paramètres -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-dot"></div>
+      <h2 id="lbl-settings">Paramètres</h2>
+    </div>
+    <div class="card-body">
+
+      <div class="ctrl-row">
+        <span class="ctrl-label" id="lbl-length">Longueur</span>
+        <span class="ctrl-val" id="len-val">16</span>
+        <input type="range" id="len" min="4" max="64" value="16" oninput="onLen(this.value)">
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:13px;font-weight:600;color:var(--muted);margin-bottom:10px;" id="lbl-include">Inclure</div>
+        <div class="checks-grid">
+          <label class="chk on" id="c-upper">
+            <input type="checkbox" checked onchange="toggle('upper',this)">
+            <div class="chk-box"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="chk-text" id="lbl-upper">Majuscules A–Z</span>
+          </label>
+          <label class="chk on" id="c-lower">
+            <input type="checkbox" checked onchange="toggle('lower',this)">
+            <div class="chk-box"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="chk-text" id="lbl-lower">Minuscules a–z</span>
+          </label>
+          <label class="chk on" id="c-numbers">
+            <input type="checkbox" checked onchange="toggle('numbers',this)">
+            <div class="chk-box"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="chk-text" id="lbl-numbers">Chiffres 0–9</span>
+          </label>
+          <label class="chk on" id="c-symbols">
+            <input type="checkbox" checked onchange="toggle('symbols',this)">
+            <div class="chk-box"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="chk-text" id="lbl-symbols">Symboles ! @ # $</span>
+          </label>
+          <label class="chk" id="c-noambig">
+            <input type="checkbox" onchange="toggle('noambig',this)">
+            <div class="chk-box"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="chk-text" id="lbl-noambig">Exclure 0/O/l/1</span>
+          </label>
+          <label class="chk" id="c-memorable">
+            <input type="checkbox" onchange="toggle('memorable',this)">
+            <div class="chk-box"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.5 6L8 1" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <span class="chk-text" id="lbl-memorable">Mémorable</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="ctrl-row" style="margin-bottom:24px;">
+        <span class="ctrl-label" id="lbl-qty">Quantité</span>
+        <div class="qty-row">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <span id="qty-val">1</span>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <button class="gen-btn" onclick="generate()" id="gen-btn-el">Générer</button>
+
+      <div class="multi-wrap" id="multi-wrap">
+        <div class="multi-head" id="lbl-all">Tous les résultats</div>
+        <div id="multi-items"></div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>passwordGEN — <span id="footer-txt">Outil gratuit de génération de mots de passe sécurisés</span></footer>
+
+<div id="toast">✓ <span id="toast-txt">Copié</span></div>
+
+<script src="script.js"></script>
+</body>
+</html>
